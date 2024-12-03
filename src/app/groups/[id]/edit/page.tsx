@@ -17,16 +17,17 @@ import React, { useEffect, useState } from 'react';
 import { HiUpload } from 'react-icons/hi';
 import * as Yup from 'yup';
 
+export interface EditQuizGroupFormValues {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+}
+
 export default function EditQuizGroupPage() {
   const { id } = useParams<{ id: string }>();
   const [thumbnail, setThumbnail] = useState('');
   const [group, setGroup] = useState<Group | null>(null);
-  interface EditQuizGroupFormValues {
-    id: string;
-    title: string;
-    description: string;
-    thumbnail: string;
-  }
   const createQuizGroupValidationSchema = Yup.object().shape({
     title: Yup.string().required(),
     description: Yup.string().required(),

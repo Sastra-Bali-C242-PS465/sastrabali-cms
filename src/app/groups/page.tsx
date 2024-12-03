@@ -28,19 +28,19 @@ export default function QuizGroupPage() {
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeader paddingX={4} paddingY={1}>
-                Title
+                Judul
               </Table.ColumnHeader>
               <Table.ColumnHeader paddingX={4} paddingY={1}>
-                Thumbnail
+                Sampul
               </Table.ColumnHeader>
               <Table.ColumnHeader paddingX={4} paddingY={1}>
-                Description
+                Deskripsi
               </Table.ColumnHeader>
               <Table.ColumnHeader paddingX={4} paddingY={1}>
-                Total Question
+                Jumlah Soal
               </Table.ColumnHeader>
               <Table.ColumnHeader paddingX={4} paddingY={1}>
-                Action
+                Aksi
               </Table.ColumnHeader>
             </Table.Row>
           </Table.Header>

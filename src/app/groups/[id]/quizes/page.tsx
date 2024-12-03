@@ -2,7 +2,8 @@
 
 import { getQuizesByGroupId } from '@/api/quiz.api';
 import { BreadcrumbCurrentLink, BreadcrumbLink, BreadcrumbRoot } from '@/components/ui/breadcrumb';
-import { Box, Button, Container, Image, Link, List, Stack, Table } from '@chakra-ui/react';
+import { Button } from '@/components/ui/button';
+import { Box, Container, HStack, Image, Link, List, Stack, Table } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { group } from 'console';
 import { useParams } from 'next/navigation';
@@ -37,10 +38,16 @@ export default function QuestionPage() {
   return (
     <Container maxW={'4xl'} marginX={'auto'} marginY={6} paddingX={4}>
       <Stack gap={4}>
-        <BreadcrumbRoot>
-          <BreadcrumbLink href='/groups'>Groups</BreadcrumbLink>
-          <BreadcrumbCurrentLink>Quizes</BreadcrumbCurrentLink>
-        </BreadcrumbRoot>
+        <HStack justifyContent='space-between'>
+          <BreadcrumbRoot>
+            <BreadcrumbLink href='/groups'>Groups</BreadcrumbLink>
+            <BreadcrumbCurrentLink>Quizes</BreadcrumbCurrentLink>
+          </BreadcrumbRoot>
+
+          <Button colorPalette='gray' color='bg' asChild paddingX={4} paddingY={3}>
+            <Link href={`/groups/${groupId}/quizes/create`}>Tambah</Link>
+          </Button>
+        </HStack>
 
         <Table.ScrollArea borderWidth='1px' maxW='4xl'>
           <Table.Root variant='outline' size='lg' showColumnBorder colorPalette='green'>

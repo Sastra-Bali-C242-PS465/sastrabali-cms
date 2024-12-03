@@ -2,7 +2,7 @@ import { QuizInputGroupValues } from '@/app/groups/[id]/quizes/create/page';
 import sabiAxios from '@/config/axios.config';
 import { handleError } from '@/utils/error.util';
 
-export const createQuiz = async ({ question, optionA, optionB, optionC, optionD, answer }: QuizInputGroupValues) => {
+export const createQuiz = async ({ question, optionA, optionB, optionC, optionD, answer, groupId }: QuizInputGroupValues) => {
   try {
     const formData = new FormData();
     formData.append('question', question);
@@ -11,7 +11,7 @@ export const createQuiz = async ({ question, optionA, optionB, optionC, optionD,
     formData.append('options', optionC);
     formData.append('options', optionD);
     formData.append('answer', answer);
-    formData.append('groupId', '1');
+    formData.append('groupId', groupId);
 
     const { data } = await sabiAxios.post('api/questions', formData, {
       headers: {

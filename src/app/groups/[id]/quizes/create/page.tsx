@@ -15,6 +15,7 @@ import { createQuiz } from '@/api/quiz.api';
 import { Toaster, toaster } from '@/components/ui/toaster';
 import { CloseButton } from '@/components/ui/close-button';
 import { InputGroup } from '@/components/ui/input-group';
+import { useParams } from 'next/navigation';
 
 export interface QuizInputGroupValues {
   question: string;
@@ -23,10 +24,12 @@ export interface QuizInputGroupValues {
   optionC: string;
   optionD: string;
   answer: string;
+  groupId: string;
 }
 
 export default function CreateQuizPage() {
-  const quizInputGroupInitialValues: QuizInputGroupValues = { question: '', optionA: '', optionB: '', optionC: '', optionD: '', answer: '0' };
+  const { id: groupId } = useParams<{ id: string }>();
+  const quizInputGroupInitialValues: QuizInputGroupValues = { question: '', optionA: '', optionB: '', optionC: '', optionD: '', answer: '0', groupId };
   const createQuestionValidationSchema = Yup.object().shape({
     question: Yup.string().required(),
     optionA: Yup.string().required(),
@@ -36,7 +39,7 @@ export default function CreateQuizPage() {
     answer: Yup.number().min(0).max(3).required(),
   });
   const mutation = useMutation({
-    mutationFn: ({ question, optionA, optionB, optionC, optionD, answer }: QuizInputGroupValues) => createQuiz({ question, optionA, optionB, optionC, optionD, answer }),
+    mutationFn: ({ question, optionA, optionB, optionC, optionD, answer, groupId }: QuizInputGroupValues) => createQuiz({ question, optionA, optionB, optionC, optionD, answer, groupId }),
     onSuccess: (data) => {
       return toaster.create({
         description: data,
@@ -57,7 +60,8 @@ export default function CreateQuizPage() {
     <Container maxW={'2xl'} marginX={'auto'} marginY={6} paddingX={4}>
       <Stack gap={4}>
         <BreadcrumbRoot>
-          <BreadcrumbLink href='#'>Quizes</BreadcrumbLink>
+          <BreadcrumbLink href='/groups'>Groups</BreadcrumbLink>
+          <BreadcrumbLink href={`/groups/${groupId}/quizes`}>Quizes</BreadcrumbLink>
           <BreadcrumbCurrentLink>Create</BreadcrumbCurrentLink>
         </BreadcrumbRoot>
 

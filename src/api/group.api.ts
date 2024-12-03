@@ -1,3 +1,4 @@
+import { EditQuizGroupFormValues } from '@/app/groups/[id]/edit/page';
 import sabiAxios from '@/config/axios.config';
 import Group from '@/interfaces/group.interface';
 import { handleError } from '@/utils/error.util';
@@ -46,7 +47,7 @@ export const createGroup = async ({ title, description, thumbnail }: { title: st
   }
 };
 
-export const editGroup = async ({ id, title, description, thumbnail }: { id: string; title: string; description: string; thumbnail: string }) => {
+export const editGroup = async ({ id, title, description, thumbnail }: EditQuizGroupFormValues) => {
   try {
     const formData = new FormData();
     formData.append('title', title);
