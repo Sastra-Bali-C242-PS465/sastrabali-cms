@@ -1,4 +1,4 @@
-import { QuizInputGroupValues } from '@/app/quizes/create/page';
+import { QuizInputGroupValues } from '@/app/groups/[id]/quizes/create/page';
 import sabiAxios from '@/config/axios.config';
 import { handleError } from '@/utils/error.util';
 
@@ -20,6 +20,20 @@ export const createQuiz = async ({ question, optionA, optionB, optionC, optionD,
     });
 
     return data.message;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getQuizesByGroupId = async (groupId: number) => {
+  try {
+    const {
+      data: {
+        data: { quizes },
+      },
+    } = await sabiAxios.get(`/api/groups/${groupId}/quizes`);
+
+    return quizes;
   } catch (error) {
     handleError(error);
   }
