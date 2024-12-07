@@ -1,4 +1,4 @@
-import { EditQuizGroupFormValues } from '@/app/groups/[id]/edit/page';
+import { EditQuizGroupFormValues } from '@/app/(auth)/groups/[id]/edit/page';
 import sabiAxios from '@/config/axios.config';
 import Group from '@/interfaces/group.interface';
 import { handleError } from '@/utils/error.util';
@@ -7,10 +7,16 @@ export const getGroups = async () => {
   try {
     const {
       data: { data },
-    } = await sabiAxios.get('/api/groups');
+    } = await sabiAxios.get('/api/groups', {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
 
     return data.groups;
   } catch (error) {
+    console.log(error);
+
     handleError(error);
   }
 };
@@ -37,6 +43,7 @@ export const createGroup = async ({ title, description, thumbnail }: { title: st
 
     const { data } = await sabiAxios.post('/api/groups/', formData, {
       headers: {
+        Authorization: localStorage.getItem('token'),
         'Content-Type': 'multipart/form-data',
       },
     });
@@ -61,6 +68,7 @@ export const editGroup = async ({ id, title, description, thumbnail }: EditQuizG
       },
     } = await sabiAxios.put(`/api/groups/${id}`, formData, {
       headers: {
+        Authorization: localStorage.getItem('token'),
         'Content-Type': 'multipart/form-data',
       },
     });
