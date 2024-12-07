@@ -7,7 +7,11 @@ export const getUsers = async () => {
       data: {
         data: { users },
       },
-    } = await sabiAxios.get('/api/users');
+    } = await sabiAxios.get('/api/users', {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
 
     return users;
   } catch (error) {
