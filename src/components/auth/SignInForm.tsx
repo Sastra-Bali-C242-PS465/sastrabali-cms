@@ -54,7 +54,7 @@ export default function SignInForm() {
           }
         }}
       >
-        {(props) => (
+        {() => (
           <Form>
             <VStack alignItems='start'>
               {/* Email Field */}

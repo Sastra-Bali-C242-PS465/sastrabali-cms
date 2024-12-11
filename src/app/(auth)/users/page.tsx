@@ -1,11 +1,9 @@
 'use client';
 
-import { getGroups } from '@/api/group.api';
 import { getUsers } from '@/api/user.api';
-import { Button } from '@/components/ui/button';
 import { User } from '@/interfaces/user.interface';
 import useUserStore from '@/lib/stores/user.store';
-import { Container, Image, Link, Table } from '@chakra-ui/react';
+import { Container, Table } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 
@@ -20,7 +18,7 @@ export default function UserPage() {
     if (data) {
       setUsers(data);
     }
-  }, [data]);
+  }, [data, setUsers]);
 
   return (
     <Container maxW={'4xl'} marginX={'auto'} marginY={6} paddingX={4}>

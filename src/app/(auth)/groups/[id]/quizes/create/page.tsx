@@ -81,7 +81,7 @@ export default function CreateQuizPage() {
               <VStack gap={4}>
                 {/* Question Field */}
                 <FormikField name={'question'}>
-                  {({ field, form }: { field: FieldInputProps<string>; form: FormikProps<QuizInputGroupValues> }) => (
+                  {({ form }: { form: FormikProps<QuizInputGroupValues> }) => (
                     <Field invalid={Boolean(form.touched.question && form.errors.question)} errorText={form.errors.question}>
                       <FileUploadRoot onFileAccept={(details) => props.setFieldValue('question', details.files[0])} accept={['image/jpeg', 'image/png']} maxFileSize={1024 * 200}>
                         <InputGroup
@@ -106,7 +106,7 @@ export default function CreateQuizPage() {
 
                 {/* Options FieldArray */}
                 <FieldArray name={'options'}>
-                  {(arrayHelpers) => (
+                  {() => (
                     <Box w='full' paddingX={6}>
                       <RadioGroup value={props.values.answer} onValueChange={(e) => props.setFieldValue('answer', e.value)}>
                         <SimpleGrid columns={2} gap={4}>
