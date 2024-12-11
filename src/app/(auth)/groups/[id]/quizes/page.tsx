@@ -3,9 +3,8 @@
 import { getQuizesByGroupId } from '@/api/quiz.api';
 import { BreadcrumbCurrentLink, BreadcrumbLink, BreadcrumbRoot } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Box, Container, HStack, Image, Link, List, Stack, Table } from '@chakra-ui/react';
+import { Container, HStack, Image, Link, List, Stack, Table } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import { group } from 'console';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { HiCheck } from 'react-icons/hi';
@@ -87,7 +86,7 @@ export default function QuestionPage() {
                       </List.Root>
                     </Table.Cell>
                     <Table.Cell paddingX={4} paddingY={2}>
-                      <Button asChild>
+                      <Button colorPalette='orange' color='bg' asChild>
                         <Link href='#'>Edit</Link>
                       </Button>
                     </Table.Cell>

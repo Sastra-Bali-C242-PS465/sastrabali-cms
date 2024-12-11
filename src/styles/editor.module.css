@@ -1,0 +1,18 @@
+.edjMarkup table td {
+  border: 1px solid black;
+  padding-inline: 2rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.edjMarkup table th {
+  border: 1px solid black;
+  padding-inline: 2rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.edjMarkup i {
+  font-style: italic;
+}

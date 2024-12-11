@@ -146,7 +146,7 @@ export default function EditQuizGroupPage() {
                   {thumbnail && (
                     <VStack alignItems='start'>
                       <Text fontSize='sm'>Preview:</Text>
-                      <Image height='200px' src={thumbnail} />
+                      <Image height='200px' src={thumbnail} alt='Thumbnail preview' />
                     </VStack>
                   )}
 

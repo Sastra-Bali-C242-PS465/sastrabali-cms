@@ -8,7 +8,7 @@ import { Field } from '@/components/ui/field';
 import { FileInput, FileUploadClearTrigger, FileUploadRoot } from '@/components/ui/file-upload';
 import { InputGroup } from '@/components/ui/input-group';
 import { Toaster, toaster } from '@/components/ui/toaster';
-import { Box, BreadcrumbCurrentLink, BreadcrumbLink, Container, Icon, Image, Input, Stack, Text, VStack } from '@chakra-ui/react';
+import { BreadcrumbCurrentLink, BreadcrumbLink, Container, Icon, Image, Input, Stack, Text, VStack } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import { Field as FormikField, Form, Formik, FieldInputProps, FormikProps } from 'formik';
 import React, { useState } from 'react';
@@ -133,7 +133,7 @@ export default function CreateQuizGroupPage() {
                 {thumbnail && (
                   <VStack alignItems='start'>
                     <Text fontSize='sm'>Preview:</Text>
-                    <Image height='200px' src={thumbnail} />
+                    <Image height='200px' src={thumbnail} alt='Thumbnail preview' />
                   </VStack>
                 )}
 

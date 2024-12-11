@@ -19,7 +19,7 @@ export default function QuizGroupPage() {
     if (data) {
       setGroups(data);
     }
-  }, [data]);
+  }, [data, setGroups]);
 
   return (
     <Container maxW={'4xl'} marginX={'auto'} marginY={6} paddingX={4}>
@@ -53,7 +53,7 @@ export default function QuizGroupPage() {
                     {group.title}{' '}
                   </Table.Cell>
                   <Table.Cell paddingX={4} paddingY={2}>
-                    <Image rounded='md' src={group.thumbnailUrl} alt={`${group.title} thumbnail`} />
+                    <Image h='200px' rounded='md' src={group.thumbnailUrl} alt={`${group.title} thumbnail`} />
                   </Table.Cell>
                   <Table.Cell paddingX={4} paddingY={2}>
                     {group.description}
@@ -62,7 +62,7 @@ export default function QuizGroupPage() {
                     <Link href={`/groups/${group.id}/quizes`}>{group.totalQuestion}</Link>
                   </Table.Cell>
                   <Table.Cell paddingX={4} paddingY={2}>
-                    <Button asChild>
+                    <Button colorPalette='orange' color='bg' asChild>
                       <Link href={`/groups/${group.id}/edit`}>Edit</Link>
                     </Button>
                   </Table.Cell>

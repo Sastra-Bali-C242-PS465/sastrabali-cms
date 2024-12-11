@@ -1,4 +1,3 @@
-import Group from '@/interfaces/group.interface';
 import { User } from '@/interfaces/user.interface';
 import { create } from 'zustand';
 

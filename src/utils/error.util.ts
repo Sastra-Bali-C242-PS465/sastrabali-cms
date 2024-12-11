@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export const handleError = (error: any) => {
   // Handle axios-specific error structure
   if (error.response && error.response.data && error.response.data.message) {
