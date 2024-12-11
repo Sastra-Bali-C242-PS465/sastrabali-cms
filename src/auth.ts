@@ -16,8 +16,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         const token = await login(credentials as { email: string; password: string });
 
-        console.log(token);
-
         if (!token) {
           return null;
         }

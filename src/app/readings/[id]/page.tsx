@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Heading, Stack, VStack } from '@chakra-ui/react';
+import { Box, Container, Heading, Image, Stack, VStack } from '@chakra-ui/react';
 import { useParams } from 'next/navigation';
 import styles from '@/styles/editor.module.css';
 import { useEffect, useState } from 'react';
@@ -50,6 +50,14 @@ const customParsers = {
   },
 };
 
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+});
+
 export default function ReadingPage() {
   const { id } = useParams<{ id: string }>();
   const [markup, setMarkup] = useState('');
@@ -78,10 +86,17 @@ export default function ReadingPage() {
           </BreadcrumbRoot>
         )}
 
-        <VStack gap={4}>
-          <Heading>{data?.title}</Heading>
-          <div className={styles.edjMarkup} dangerouslySetInnerHTML={{ __html: markup }}></div>
-        </VStack>
+        {data && (
+          <VStack className={poppins.className} gap={4}>
+            <Box>
+              <Image w='300px' src={data.thumbnailUrl} alt='Thumbnail reading' />
+              <Heading fontFamily='inherit' textAlign='center'>
+                {data.title}
+              </Heading>
+            </Box>
+            <div className={styles.edjMarkup} dangerouslySetInnerHTML={{ __html: markup }}></div>
+          </VStack>
+        )}
       </Stack>
     </Container>
   );

@@ -1,9 +1,10 @@
 'use client';
 
 import { getQuizesByGroupId } from '@/api/quiz.api';
+import DeleteButton from '@/components/deleteButton';
 import { BreadcrumbCurrentLink, BreadcrumbLink, BreadcrumbRoot } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Container, HStack, Image, Link, List, Stack, Table } from '@chakra-ui/react';
+import { Container, HStack, Image, Link, List, SimpleGrid, Stack, Table } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -86,9 +87,12 @@ export default function QuestionPage() {
                       </List.Root>
                     </Table.Cell>
                     <Table.Cell paddingX={4} paddingY={2}>
-                      <Button colorPalette='orange' color='bg' asChild>
-                        <Link href='#'>Edit</Link>
-                      </Button>
+                      <SimpleGrid gap={1}>
+                        <Button colorPalette='orange' color='bg' asChild>
+                          <Link href='#'>Edit</Link>
+                        </Button>
+                        <DeleteButton id={String(quiz.id)} model='question' />
+                      </SimpleGrid>
                     </Table.Cell>
                   </Table.Row>
                 ))}
