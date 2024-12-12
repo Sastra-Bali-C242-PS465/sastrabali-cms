@@ -81,7 +81,7 @@ export const getReadingById = async (id: string) => {
   }
 };
 
-export const deleteReading = async (id: string) => {
+export const deleteReading = async (id: number) => {
   try {
     const {
       data: { message },

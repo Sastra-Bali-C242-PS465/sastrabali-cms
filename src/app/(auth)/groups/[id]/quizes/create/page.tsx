@@ -4,9 +4,9 @@ import { BreadcrumbCurrentLink, BreadcrumbLink, BreadcrumbRoot } from '@/compone
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
 import { Radio, RadioGroup } from '@/components/ui/radio';
-import { Box, Container, HStack, Icon, Input, SimpleGrid, Stack, VStack } from '@chakra-ui/react';
+import { Box, Container, HStack, Icon, Image, Input, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react';
 import { Field as FormikField, FieldArray, Form, Formik, FieldInputProps, FormikProps } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { FileInput, FileUploadClearTrigger, FileUploadRoot } from '@/components/ui/file-upload';
 import { HiUpload } from 'react-icons/hi';
 import * as Yup from 'yup';
@@ -30,6 +30,7 @@ export interface QuizInputGroupValues {
 export default function CreateQuizPage() {
   const { id: groupId } = useParams<{ id: string }>();
   const quizInputGroupInitialValues: QuizInputGroupValues = { question: '', optionA: '', optionB: '', optionC: '', optionD: '', answer: '0', groupId };
+  const [question, setQuestion] = useState<string | null>(null);
   const createQuestionValidationSchema = Yup.object().shape({
     question: Yup.string().required(),
     optionA: Yup.string().required(),
@@ -38,9 +39,16 @@ export default function CreateQuizPage() {
     optionD: Yup.string().required(),
     answer: Yup.number().min(0).max(3).required(),
   });
+  const clickFileUploadCloseButton = () => {
+    const button = document.querySelector<HTMLButtonElement>(`button[aria-label="Clear selected files"]`);
+    if (button) button.click();
+  };
+
   const mutation = useMutation({
     mutationFn: ({ question, optionA, optionB, optionC, optionD, answer, groupId }: QuizInputGroupValues) => createQuiz({ question, optionA, optionB, optionC, optionD, answer, groupId }),
     onSuccess: (data) => {
+      setQuestion(null);
+      clickFileUploadCloseButton();
       return toaster.create({
         description: data,
         type: 'success',
@@ -78,12 +86,24 @@ export default function CreateQuizPage() {
         >
           {(props) => (
             <Form>
-              <VStack gap={4}>
+              <VStack alignItems='start' gap={4}>
                 {/* Question Field */}
                 <FormikField name={'question'}>
                   {({ form }: { form: FormikProps<QuizInputGroupValues> }) => (
-                    <Field invalid={Boolean(form.touched.question && form.errors.question)} errorText={form.errors.question}>
-                      <FileUploadRoot onFileAccept={(details) => props.setFieldValue('question', details.files[0])} accept={['image/jpeg', 'image/png']} maxFileSize={1024 * 200}>
+                    <Field
+                      label='Soal'
+                      helperText='File dengan format .png atau .jpeg. Ukuran maks 1mb.'
+                      invalid={Boolean(form.touched.question && form.errors.question)}
+                      errorText={form.errors.question}
+                    >
+                      <FileUploadRoot
+                        onFileAccept={(details) => {
+                          props.setFieldValue('question', details.files[0]);
+                          setQuestion(URL.createObjectURL(details.files[0]));
+                        }}
+                        accept={['image/jpeg', 'image/png']}
+                        maxFileSize={1024 * 1000}
+                      >
                         <InputGroup
                           w='full'
                           startElement={
@@ -104,6 +124,14 @@ export default function CreateQuizPage() {
                   )}
                 </FormikField>
 
+                {/* Preview */}
+                {question && (
+                  <VStack alignItems='start'>
+                    <Text fontSize='sm'>Preview:</Text>
+                    <Image height='200px' src={question} alt='Pertanyaan' />
+                  </VStack>
+                )}
+
                 {/* Options FieldArray */}
                 <FieldArray name={'options'}>
                   {() => (
@@ -115,7 +143,7 @@ export default function CreateQuizPage() {
                             {/* Radio Input */}
                             <Radio value={'0'} />
 
-                            {/* Option Field */}
+                            {/* OptionA Field */}
                             <FormikField name={'optionA'}>
                               {({ field }: { field: FieldInputProps<string> }) => (
                                 <Field invalid={Boolean(props.touched.optionA && props.errors.optionA)} errorText={props.errors.optionA}>

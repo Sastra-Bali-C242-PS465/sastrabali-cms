@@ -1,8 +1,14 @@
+.edjMarkup table {
+  margin-top: 1rem;
+  margin-inline: auto;
+}
+
 .edjMarkup table td {
   border: 1px solid black;
   padding-inline: 2rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  text-align: center;
 }
 
 .edjMarkup table th {

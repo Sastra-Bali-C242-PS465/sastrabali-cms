@@ -70,7 +70,7 @@ export default function QuizGroupPage() {
                         <Button colorPalette='orange' color='bg' paddingX={4} paddingY={3} asChild>
                           <Link href={`/readings/${reading.id}/edit`}>Edit</Link>
                         </Button>
-                        <DeleteButton id={String(reading.id)} model='reading' />
+                        <DeleteButton id={reading.id} model='reading' />
                       </SimpleGrid>
                     </Table.Cell>
                   </Table.Row>
