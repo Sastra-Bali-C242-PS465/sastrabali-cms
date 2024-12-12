@@ -16,7 +16,7 @@ import { HiUpload } from 'react-icons/hi';
 import * as Yup from 'yup';
 
 export default function CreateQuizGroupPage() {
-  const [thumbnail, setThumbnail] = useState('');
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
   interface CreateQuizGroupFormValues {
     title: string;
     description: string;
@@ -32,10 +32,16 @@ export default function CreateQuizGroupPage() {
     description: Yup.string().required(),
     thumbnail: Yup.string().required(),
   });
+  const clickFileUploadCloseButton = () => {
+    const button = document.querySelector<HTMLButtonElement>(`button[aria-label="Clear selected files"]`);
+    if (button) button.click();
+  };
 
   const mutation = useMutation({
     mutationFn: (values: { title: string; description: string; thumbnail: string }) => createGroup(values),
     onSuccess: (data) => {
+      setThumbnail(null);
+      clickFileUploadCloseButton();
       return toaster.create({
         description: data,
         type: 'success',
@@ -72,7 +78,7 @@ export default function CreateQuizGroupPage() {
         >
           {(props) => (
             <Form>
-              <VStack alignItems='start'>
+              <VStack alignItems='start' gap={4}>
                 {/* Title Field */}
                 <FormikField name='title'>
                   {({ field, form }: { field: FieldInputProps<string>; form: FormikProps<CreateQuizGroupFormValues> }) => (
@@ -96,7 +102,7 @@ export default function CreateQuizGroupPage() {
                   {({ form }: { form: FormikProps<CreateQuizGroupFormValues> }) => (
                     <Field
                       label='Thumbnail'
-                      helperText='File dengan format .png atau .jpeg. Ukuran maks 200kb.'
+                      helperText='File dengan format .png atau .jpeg. Ukuran maks 1mb.'
                       invalid={Boolean(form.touched.thumbnail && form.errors.thumbnail)}
                       errorText={form.errors.thumbnail}
                     >
@@ -106,7 +112,7 @@ export default function CreateQuizGroupPage() {
                           setThumbnail(URL.createObjectURL(details.files[0]));
                         }}
                         accept={['image/jpeg', 'image/png']}
-                        maxFileSize={1024 * 200}
+                        maxFileSize={1024 * 1000}
                         required
                       >
                         <InputGroup

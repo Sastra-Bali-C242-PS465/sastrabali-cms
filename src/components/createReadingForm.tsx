@@ -133,7 +133,7 @@ export default function CreateReadingForm() {
       >
         {(props) => (
           <Form>
-            <VStack alignItems='start'>
+            <VStack alignItems='start' gap={4}>
               {/* Title Field */}
               <FormikField name='title'>
                 {({ field, form }: { field: FieldInputProps<string>; form: FormikProps<CreateReadingFormValues> }) => (

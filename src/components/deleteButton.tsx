@@ -3,21 +3,34 @@ import { Button } from './ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toaster } from './ui/toaster';
 import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger } from './ui/dialog';
+import { deleteQuiz } from '@/api/quiz.api';
 
-export default function DeleteButton({ id, model }: { id: string; model: string }) {
+export default function DeleteButton({ id, model }: { id: number; model: string }) {
   const queryClient = useQueryClient();
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   const deleteService = (model: string): Promise<any> => {
     if (model === 'reading') {
       return deleteReading(id);
     }
+    if (model === 'quiz') {
+      return deleteQuiz(id);
+    }
     return Promise.reject(new Error(`Unsupported model: ${model}`));
+  };
+
+  const invalidateQueryKey = (model: string) => {
+    if (model === 'reading') {
+      return ['readings'];
+    }
+    if (model === 'quiz') {
+      return ['quizes', 'group'];
+    }
   };
 
   const mutation = useMutation({
     mutationFn: () => deleteService(model),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['readings'] });
+      queryClient.invalidateQueries({ queryKey: invalidateQueryKey(model) });
       return toaster.create({
         description: data,
         type: 'success',
