@@ -25,7 +25,11 @@ export const getGroupById = async (id: string): Promise<Group | undefined> => {
   try {
     const {
       data: { data },
-    } = await sabiAxios.get(`/api/groups/${id}`);
+    } = await sabiAxios.get(`/api/groups/${id}`, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
 
     return data.group;
   } catch (error) {
